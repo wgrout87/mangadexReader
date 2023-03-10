@@ -13,7 +13,7 @@ export default function Login() {
 
     useEffect(() => {
         if (currentUser) {
-            navigate('/dashboard');
+            navigate('/');
         }
     }, [currentUser, navigate])
 

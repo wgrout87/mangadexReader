@@ -9,7 +9,6 @@ import PrivateRouteUpdateProfile from './components/PrivateRouteUpdateProfile';
 
 import { SiteProvider } from './utils/GlobalState';
 
-import Home from './pages/Home';
 import Header from './components/Header';
 
 function App() {
@@ -20,10 +19,9 @@ function App() {
           <AuthProvider>
             <Header />
             <Routes>
-              <Route path='/' element={<Home />} />
+              <Route path='/' element={<PrivateRouteDashboard />} />
               <Route path='/signup' element={<Signup />} />
               <Route path='/login' element={<Login />} />
-              <Route path='/dashboard' element={<PrivateRouteDashboard />} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
               <Route path='/update-profile' element={<PrivateRouteUpdateProfile />} />
             </Routes>

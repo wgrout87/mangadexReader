@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import { useSiteContext } from "../../utils/GlobalState";
 import { UPDATE_PAGE } from "../../utils/actions";
 import { useAuth } from "../../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 
 const Header = () => {
     const [error, setError] = useState('');
     const { currentUser, logout } = useAuth();
-    const navigate = useNavigate();
 
     const [state, dispatch] = useSiteContext();
     useEffect(() => {
@@ -32,7 +30,7 @@ const Header = () => {
     return (
         <>
             <header className="bg-dark text-light d-flex flex-row" id="top">
-                <div className="d-flex flex-row flex-wrap justify-content-lg-between w-100">
+                <div className="d-flex flex-row flex-wrap justify-content-between w-100">
                     <Link className="navbar-brand text-decoration-none" to="/" onClick={() => {
                         dispatch({
                             type: UPDATE_PAGE,
@@ -40,9 +38,13 @@ const Header = () => {
                         })
                     }
                     }>
-                        <h1 className="mx-4 my-3 text-start text-wrap">
-                            Mangadex Reader
-                        </h1>
+                        <div className="d-flex align-items-center">
+                            <img alt="MangaDex logo" src="./assets/images/mangadex-logo.svg" className="img-fluid" />
+                            <div className="">
+                                <img alt="MangaDex" src="./assets/images/mangadex-wordmark.svg" className="wordmark filter-green" />
+                                <h5>Reader</h5>
+                            </div>
+                        </div>
                     </Link>
 
                     <nav className="navbar navbar-expand-md">
@@ -61,10 +63,10 @@ const Header = () => {
                             <ul className="navbar-nav text-center">
                                 {currentUser ?
                                     <li>
-                                        <Link className={`nav-link btn btnForm rounded text-decoration-none px-4 m-1 text-light ${state.page === "/dashboard" ? "bg-light text-dark" : ""}`} to="/dashboard" onClick={() => {
+                                        <Link className={`nav-link btn btnForm rounded text-decoration-none px-4 m-1 text-light ${state.page === "/" ? "bg-light text-dark" : ""}`} to="/" onClick={() => {
                                             dispatch({
                                                 type: UPDATE_PAGE,
-                                                page: "/dashboard"
+                                                page: "/"
                                             })
                                         }
                                         }>DASHBOARD</Link>
@@ -81,7 +83,7 @@ const Header = () => {
                                     </li>}
                                 {currentUser ?
                                     <li>
-                                        <Link className={`nav-link btn btnForm rounded text-decoration-none px-4 m-1 text-light ${state.page === "/" ? "bg-light text-dark" : ""}`} to="/" onClick={handleLogout}>LOG OUT</Link>
+                                        <Link className={`nav-link btn btnForm rounded text-decoration-none px-4 m-1 text-light`} to="/" onClick={handleLogout}>LOG OUT</Link>
                                     </li>
                                     :
                                     <li>
