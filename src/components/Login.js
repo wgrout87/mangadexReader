@@ -15,7 +15,7 @@ export default function Login() {
         if (currentUser) {
             navigate('/dashboard');
         }
-    }, [currentUser])
+    }, [currentUser, navigate])
 
     async function handleSubmit(e) {
         e.preventDefault();
