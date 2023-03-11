@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSiteContext } from "../../utils/GlobalState";
 import { UPDATE_PAGE } from "../../utils/actions";
@@ -10,12 +10,6 @@ const Header = () => {
     const { currentUser, logout } = useAuth();
 
     const [state, dispatch] = useSiteContext();
-    useEffect(() => {
-        dispatch({
-            type: UPDATE_PAGE,
-            page: window.location.pathname
-        });
-    });
 
     async function handleLogout() {
         setError('');
@@ -40,9 +34,9 @@ const Header = () => {
                     }>
                         <div className="d-flex align-items-center">
                             <img alt="MangaDex logo" src="./assets/images/mangadex-logo.svg" className="img-fluid" />
-                            <div className="">
+                            <div>
                                 <img alt="MangaDex" src="./assets/images/mangadex-wordmark.svg" className="wordmark filter-green" />
-                                <h5>Reader</h5>
+                                <h5 className="ms-auto me-0">Reader</h5>
                             </div>
                         </div>
                     </Link>
