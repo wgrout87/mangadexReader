@@ -1,39 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Button, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-
-const creds = {
-    username: process.env.REACT_APP_MANGADEX_USERNAME,
-    password: process.env.REACT_APP_MANGADEX_PASSWORD
-};
-
-const baseUrl = 'https://api.mangadex.org';
-
-let sessionToken, expires, refreshToken;
-
-(async () => {
-    const resp = await axios({
-        method: 'POST',
-        url: `${baseUrl}/auth/login`,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data: creds
-    });
-
-    sessionToken = resp.data.token.session;
-    expires = new Date().valueOf() + 15 * 60000
-    refreshToken = resp.data.token.refresh;
-
-    console.log(sessionToken, expires, refreshToken);
-})();
+import { useSiteContext } from "../utils/GlobalState";
 
 export default function Dashboard() {
+    const [state, dispatch] = useSiteContext();
     const [error, setError] = useState('');
     const { currentUser, logout } = useAuth();
     const navigate = useNavigate();
+    const baseUrl = state.baseUrl;
+
+    useEffect(() => {
+        if (!state.username) {
+            navigate('/linkAccount');
+        }
+    }, [state, navigate])
 
     async function handleLogout() {
         setError('');
@@ -66,11 +49,11 @@ export default function Dashboard() {
                         url: `${baseUrl}/user/follows/manga/feed?limit=100&translatedLanguage%5B%5D=en&contentRating%5B%5D=safe&contentRating%5B%5D=suggestive&includeFutureUpdates=1&order%5BcreatedAt%5D=desc&order%5BupdatedAt%5D=desc&order%5BpublishAt%5D=desc&order%5BreadableAt%5D=desc&order%5Bvolume%5D=desc&order%5Bchapter%5D=desc`,
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${sessionToken}`
+                            'Authorization': `Bearer ${state.sessionToken}`
                         },
                     });
 
-                    console.log(resp);
+                    console.log(resp.data);
                 })()
             }}>Get Feed</Button>
         </>

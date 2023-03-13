@@ -7,6 +7,7 @@ const { Provider } = SiteContext;
 const SiteProvider = ({ value = [], ...props }) => {
     const [state, dispatch] = useSiteReducer({
         page: "home",
+        baseUrl: 'https://api.mangadex.org',
     });
 
     return <Provider value={[state, dispatch]} {...props} />;
