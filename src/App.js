@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PrivateRouteDashboard from './components/PrivateRouteDashboard';
 import ForgotPassword from './components/ForgotPassword';
 import PrivateRouteUpdateProfile from './components/PrivateRouteUpdateProfile';
+import LinkAccount from './components/LinkAccount'
 
 import { SiteProvider } from './utils/GlobalState';
 
@@ -24,6 +25,7 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
               <Route path='/update-profile' element={<PrivateRouteUpdateProfile />} />
+              <Route path='/link-account' element={<LinkAccount />} />
             </Routes>
           </AuthProvider>
         </SiteProvider>

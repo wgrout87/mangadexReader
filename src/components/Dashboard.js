@@ -14,7 +14,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         if (!state.username) {
-            navigate('/linkAccount');
+            navigate('/link-account');
         }
     }, [state, navigate])
 
