@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Form, Button, Card, Alert } from 'react-bootstrap';
-import { useAuth } from "../contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
+import { UPDATE_USERNAME_AND_PASSWORD } from "../utils/actions";
 
 export default function Login() {
     const [state, dispatch] = useSiteContext();
@@ -29,36 +29,44 @@ export default function Login() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        setError('');
         setLoading(true);
+
         const username = usernameRef.current.value;
         const password = passwordRef.current.value;
         localStorage.setItem('username', username);
         localStorage.setItem('password', password);
 
+        console.log(username);
+
         creds.username = username;
         creds.password = password;
         dispatch({
+            type: UPDATE_USERNAME_AND_PASSWORD,
             username: username,
             password: password
         });
 
-        console.log(creds);
-
         (async () => {
-            const resp = await axios({
-                method: 'POST',
-                url: `${baseUrl}/auth/login`,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: creds
-            });
+            try {
+                const resp = await axios({
+                    method: 'POST',
+                    url: `${baseUrl}/auth/login`,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: creds
+                });
 
-            sessionToken = resp.data.token.session;
-            expires = new Date().valueOf() + 15 * 60000
-            refreshToken = resp.data.token.refresh;
+                sessionToken = resp.data.token.session;
+                expires = new Date().valueOf() + 15 * 60000
+                refreshToken = resp.data.token.refresh;
 
-            console.log(sessionToken, expires, refreshToken);
+                console.log(sessionToken, expires, refreshToken);
+            }
+            catch {
+                setError("Failed to link account");
+            }
         })();
 
         setLoading(false);

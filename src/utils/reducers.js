@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import {
-    UPDATE_PAGE
+    UPDATE_PAGE,
+    UPDATE_USERNAME_AND_PASSWORD
 } from "./actions";
 
 export const reducer = (state, action) => {
@@ -9,6 +10,13 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 page: action.page,
+            };
+
+        case UPDATE_USERNAME_AND_PASSWORD:
+            return {
+                ...state,
+                username: action.username,
+                password: action.password,
             };
 
         default:
