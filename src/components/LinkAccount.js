@@ -3,7 +3,7 @@ import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
-import { UPDATE_USERNAME_AND_PASSWORD } from "../utils/actions";
+import { UPDATE_USERNAME_AND_PASSWORD, UPDATE_SESSION_TOKEN_ETC } from "../utils/actions";
 
 export default function Login() {
     const [state, dispatch] = useSiteContext();
@@ -62,7 +62,12 @@ export default function Login() {
                 expires = new Date().valueOf() + 15 * 60000
                 refreshToken = resp.data.token.refresh;
 
-                console.log(sessionToken, expires, refreshToken);
+                dispatch({
+                    type: UPDATE_SESSION_TOKEN_ETC,
+                    sessionToken: sessionToken,
+                    expires: expires,
+                    refreshToken: refreshToken,
+                })
             }
             catch {
                 setError("Failed to link account");

@@ -1,7 +1,8 @@
 import { useReducer } from "react";
 import {
     UPDATE_PAGE,
-    UPDATE_USERNAME_AND_PASSWORD
+    UPDATE_USERNAME_AND_PASSWORD,
+    UPDATE_SESSION_TOKEN_ETC,
 } from "./actions";
 
 export const reducer = (state, action) => {
@@ -17,6 +18,14 @@ export const reducer = (state, action) => {
                 ...state,
                 username: action.username,
                 password: action.password,
+            };
+
+        case UPDATE_SESSION_TOKEN_ETC:
+            return {
+                ...state,
+                sessionToken: action.sessionToken,
+                expires: action.expires,
+                refreshToken: action.refreshToken,
             };
 
         default:
