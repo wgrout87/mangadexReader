@@ -20,17 +20,17 @@ export default function Dashboard() {
                 page: "Link Account"
             })
         }
-    }, [state, navigate])
+    }, [state, navigate, dispatch])
 
     return (
         <>
-            <Card>
+            <Card className="bg-dark">
                 <Card.Body>
                     <h2 className="text-center mb-4">Dashboard</h2>
                     <strong>Email:</strong> {currentUser.email}
                 </Card.Body>
             </Card>
-            <Button variant='link' onClick={() => {
+            <Button onClick={() => {
                 (async () => {
                     const resp = await axios({
                         method: 'GET',

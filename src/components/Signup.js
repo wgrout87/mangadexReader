@@ -33,7 +33,7 @@ export default function Signup() {
 
     return (
         <>
-            <Card>
+            <Card className="bg-dark">
                 <Card.Body>
                     <h2 className="text-center mb-4">Sign Up</h2>
                     {error && <Alert variant='danger'>{error}</Alert>}

@@ -3,7 +3,7 @@ import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
-import { UPDATE_USERNAME_AND_PASSWORD, UPDATE_SESSION_TOKEN_ETC } from "../utils/actions";
+import { UPDATE_PAGE, UPDATE_USERNAME_AND_PASSWORD, UPDATE_SESSION_TOKEN_ETC } from "../utils/actions";
 
 export default function Login() {
     const [state, dispatch] = useSiteContext();
@@ -16,9 +16,13 @@ export default function Login() {
 
     useEffect(() => {
         if (state.username) {
+            dispatch({
+                type: UPDATE_PAGE,
+                page: "Dashboard"
+            })
             navigate('/');
         }
-    }, [state, navigate])
+    }, [state, navigate, dispatch])
 
     const creds = {
         username: "",
@@ -79,7 +83,7 @@ export default function Login() {
 
     return (
         <>
-            <Card>
+            <Card className="bg-dark">
                 <Card.Body>
                     <h2 className="text-center mb-4">Link MangaDex Account</h2>
                     {error && <Alert variant='danger'>{error}</Alert>}

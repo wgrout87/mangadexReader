@@ -22,7 +22,7 @@ export default function Login() {
             })
             navigate('/');
         }
-    }, [currentUser, navigate])
+    }, [currentUser, navigate, dispatch])
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -40,7 +40,7 @@ export default function Login() {
 
     return (
         <>
-            <Card>
+            <Card className="bg-dark">
                 <Card.Body>
                     <h2 className="text-center mb-4">Sign In</h2>
                     {error && <Alert variant='danger'>{error}</Alert>}
