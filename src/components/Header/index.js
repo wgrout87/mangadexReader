@@ -17,7 +17,7 @@ const Header = () => {
         try {
             await logout();
         } catch {
-            setError('Failed to log out')
+            setError('Failed to sign out')
         }
     }
 
@@ -46,9 +46,9 @@ const Header = () => {
                             <button className="btn rounded-circle btnForm text-decoration-none p-1 m-1 text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 {
                                     currentUser ?
-                                        <img data-v-e065c6ac="" className="rounded-full overflow-hidden" src="./assets/images/avatar.png" alt="Avatar" width="1065" height="1065" id="avatar" style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
+                                        <img className="rounded-full overflow-hidden" src="./assets/images/avatar.png" alt="Avatar" width="1065" height="1065" id="avatar" style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
                                         :
-                                        <svg data-v-58fcffdf="" data-v-e065c6ac="" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" class="icon large text-icon-contrast text-undefined" id="avatar"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m8-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" class="icon large text-icon-contrast text-undefined" id="avatar"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m8-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path></svg>
                                 }
                             </button>
                             {
@@ -65,6 +65,15 @@ const Header = () => {
                                             }
                                             }>Dashboard</Link>
                                         </li>
+                                        <li>
+                                            <Link className="dropdown-item" to="/update-profile" onClick={() => {
+                                                dispatch({
+                                                    type: UPDATE_PAGE,
+                                                    page: "Update Profile"
+                                                })
+                                            }
+                                            }>Update Profile</Link>
+                                        </li>
                                         <li><hr className="dropdown-divider" /></li>
                                         <li><Link className={`dropdown-item`} to="/" onClick={() => {
                                             dispatch({
@@ -78,9 +87,8 @@ const Header = () => {
                                         </Link></li>
                                     </ul>
                                     :
-                                    <ul className="dropdown-menu">
-                                        <li><hr className="dropdown-divider" /></li>
-                                        <li><Link className="dropdown-item" to="/login" onClick={() => {
+                                    <ul className="dropdown-menu dropdown-menu-end">
+                                        <li><Link className="dropdown-item" to="/signin" onClick={() => {
                                             dispatch({
                                                 type: UPDATE_PAGE,
                                                 page: "Sign In"

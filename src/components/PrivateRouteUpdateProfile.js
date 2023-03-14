@@ -6,5 +6,5 @@ import UpdateProfile from "./UpdateProfile";
 export default function PrivateRoute() {
     const { currentUser } = useAuth();
 
-    return currentUser ? <UpdateProfile /> : <Navigate to='/login' />
+    return currentUser ? <UpdateProfile /> : <Navigate to='/signin' />
 }

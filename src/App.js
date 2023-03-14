@@ -22,7 +22,7 @@ function App() {
             <Routes>
               <Route path='/' element={<PrivateRouteDashboard />} />
               <Route path='/signup' element={<Signup />} />
-              <Route path='/login' element={<Login />} />
+              <Route path='/signin' element={<Login />} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
               <Route path='/update-profile' element={<PrivateRouteUpdateProfile />} />
               <Route path='/link-account' element={<LinkAccount />} />

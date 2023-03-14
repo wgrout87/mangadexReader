@@ -41,7 +41,7 @@ export default function ForgotPassword() {
                         <Button disabled={loading} className='w-100' type='submit'>Reset Password</Button>
                     </Form>
                     <div className="w-100 text-center mt-2">
-                        <Link to='/login'>Log In</Link>
+                        <Link to='/signin'>Sign In</Link>
                     </div>
                 </Card.Body>
             </Card>

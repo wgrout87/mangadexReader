@@ -6,5 +6,5 @@ import Dashboard from "./Dashboard";
 export default function PrivateRoute() {
     const { currentUser } = useAuth();
 
-    return currentUser ? <Dashboard /> : <Navigate to='/login' />
+    return currentUser ? <Dashboard /> : <Navigate to='/signin' />
 }

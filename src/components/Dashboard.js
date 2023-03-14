@@ -23,9 +23,9 @@ export default function Dashboard() {
 
         try {
             await logout();
-            navigate('/login')
+            navigate('/signin')
         } catch {
-            setError('Failed to log out')
+            setError('Failed to sign out')
         }
     }
 
@@ -36,12 +36,8 @@ export default function Dashboard() {
                     <h2 className="text-center mb-4">Dashboard</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <strong>Email:</strong> {currentUser.email}
-                    <Button className='w-100' onClick={() => navigate('/update-profile')}>Update Profile</Button>
                 </Card.Body>
             </Card>
-            <div className="w-100 text-center mt-2">
-                <Button variant='link' onClick={handleLogout}>Log Out</Button>
-            </div>
             <Button variant='link' onClick={() => {
                 (async () => {
                     const resp = await axios({
