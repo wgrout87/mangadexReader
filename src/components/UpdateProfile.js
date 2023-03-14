@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import { useSiteContext } from "../utils/GlobalState";
+import { UPDATE_PAGE } from "../utils/actions";
 
 export default function UpdateProfile() {
     const emailRef = useRef();
@@ -11,6 +13,7 @@ export default function UpdateProfile() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [, dispatch] = useSiteContext();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -63,7 +66,13 @@ export default function UpdateProfile() {
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                <Link to='/dashboard'>Cancel</Link>
+                <Link className="navbar-brand text-decoration-none" to="/" onClick={() => {
+                    dispatch({
+                        type: UPDATE_PAGE,
+                        page: "Dashboard"
+                    })
+                }
+                }>Cancel</Link>
             </div>
         </>
     )

@@ -107,7 +107,7 @@ const Header = () => {
                                             <li><Link className="dropdown-item text-light" to="/forgot-password" onClick={() => {
                                                 dispatch({
                                                     type: UPDATE_PAGE,
-                                                    page: "Password Recovery"
+                                                    page: "Password Reset"
                                                 })
                                             }
                                             }>Forgot Password</Link></li>
@@ -117,8 +117,8 @@ const Header = () => {
                         </nav>
                     </div>
                 </div>
-                <div className="w-100 bg-less-dark">
-                    <h4 className="text-light">Hello World</h4>
+                <div className="w-100 bg-less-dark d-flex flex-row">
+                    <h5 className="text-light ms-5 mt-1">{state.page}</h5>
                 </div>
             </header>
             {error && <Alert variant='danger'>{error}</Alert>}

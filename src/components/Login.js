@@ -56,12 +56,23 @@ export default function Login() {
                         <Button disabled={loading} className='w-100' type='submit'>Sign In</Button>
                     </Form>
                     <div className="w-100 text-center mt-2">
-                        <Link to='/forgot-password'>Forgot Password</Link>
+                        <Link className="dropdown-item text-light" to="/forgot-password" onClick={() => {
+                            dispatch({
+                                type: UPDATE_PAGE,
+                                page: "Password Reset"
+                            })
+                        }
+                        }>Forgot Password</Link>
                     </div>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Need an account? <Link to='/signup'>Sign Up</Link>
+                Need an account? <Link to='/signup' onClick={() => {
+                    dispatch({
+                        type: UPDATE_PAGE,
+                        page: "Sign Up"
+                    })
+                }}>Sign Up</Link>
             </div>
         </>
     )

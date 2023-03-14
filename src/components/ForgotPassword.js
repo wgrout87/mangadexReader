@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import { useSiteContext } from "../utils/GlobalState";
+import { UPDATE_PAGE } from "../utils/actions";
 
 export default function ForgotPassword() {
     const emailRef = useRef();
@@ -9,6 +11,7 @@ export default function ForgotPassword() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
+    const [, dispatch] = useSiteContext();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -41,12 +44,22 @@ export default function ForgotPassword() {
                         <Button disabled={loading} className='w-100' type='submit'>Reset Password</Button>
                     </Form>
                     <div className="w-100 text-center mt-2">
-                        <Link to='/signin'>Sign In</Link>
+                        <Link to='/signin' onClick={() => {
+                            dispatch({
+                                type: UPDATE_PAGE,
+                                page: "Sign In"
+                            })
+                        }}>Sign In</Link>
                     </div>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Need an account? <Link to='/signup'>Sign Up</Link>
+                Need an account? <Link to='/signup' onClick={() => {
+                    dispatch({
+                        type: UPDATE_PAGE,
+                        page: "Sign Up"
+                    })
+                }}>Sign Up</Link>
             </div>
         </>
     );
