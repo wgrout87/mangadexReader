@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSiteContext } from "../../utils/GlobalState";
 import { UPDATE_PAGE } from "../../utils/actions";
@@ -21,6 +21,8 @@ const Header = () => {
         }
     }
 
+    useEffect(() => { console.log(state.page) }, [state]);
+
     return (
         <>
             <header className="bg-dark text-light d-flex flex-row" id="top">
@@ -28,7 +30,7 @@ const Header = () => {
                     <Link className="navbar-brand text-decoration-none" to="/" onClick={() => {
                         dispatch({
                             type: UPDATE_PAGE,
-                            page: "/"
+                            page: "Dashboard"
                         })
                     }
                     }>
@@ -48,7 +50,7 @@ const Header = () => {
                                     currentUser ?
                                         <img className="rounded-full overflow-hidden" src="./assets/images/avatar.png" alt="Avatar" width="1065" height="1065" id="avatar" style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
                                         :
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" class="icon large text-icon-contrast text-undefined" id="avatar"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m8-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" className="icon large text-icon-contrast text-undefined" id="avatar"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m8-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path></svg>
                                 }
                             </button>
                             {
@@ -82,7 +84,7 @@ const Header = () => {
                                             })
                                             handleLogout()
                                         }}>
-                                            <svg data-v-58fcffdf="" data-v-23b03fcb="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="icon text-icon-contrast text-undefined mr-2"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14 5-5-5-5m5 5H9"></path></svg>
+                                            <svg data-v-58fcffdf="" data-v-23b03fcb="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" className="icon text-icon-contrast text-undefined mr-2"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14 5-5-5-5m5 5H9"></path></svg>
                                             Sign Out
                                         </Link></li>
                                     </ul>

@@ -1,40 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { Card, Button, Alert } from 'react-bootstrap';
+import React, { useEffect } from "react";
+import { Card, Button } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
+import { UPDATE_PAGE } from "../utils/actions";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
 
 export default function Dashboard() {
     const [state, dispatch] = useSiteContext();
-    const [error, setError] = useState('');
-    const { currentUser, logout } = useAuth();
+    const { currentUser } = useAuth();
     const navigate = useNavigate();
     const baseUrl = state.baseUrl;
 
     useEffect(() => {
-        if (!state.username) {
+        if (!state.username && state.page === "Dashboard") {
             navigate('/link-account');
+            dispatch({
+                type: UPDATE_PAGE,
+                page: "Link Account"
+            })
         }
     }, [state, navigate])
-
-    async function handleLogout() {
-        setError('');
-
-        try {
-            await logout();
-            navigate('/signin')
-        } catch {
-            setError('Failed to sign out')
-        }
-    }
 
     return (
         <>
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Dashboard</h2>
-                    {error && <Alert variant="danger">{error}</Alert>}
                     <strong>Email:</strong> {currentUser.email}
                 </Card.Body>
             </Card>
