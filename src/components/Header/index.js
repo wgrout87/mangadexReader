@@ -44,66 +44,66 @@ const Header = () => {
                     <nav className="navbar ms-auto">
                         <div className="dropdown hidden-arrow">
                             <button className="btn rounded-circle btnForm text-decoration-none p-1 m-1 text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img data-v-e065c6ac="" className="rounded-full overflow-hidden" src="./assets/images/avatar.png" alt="Avatar" width="1065" height="1065" id="avatar" style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
-                                {/* <svg data-v-58fcffdf="" data-v-e065c6ac="" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" class="icon large text-icon-contrast text-undefined" id="avatar"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m8-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path></svg> */}
-                            </button>
-                            <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="/signup">Signup</a></li>
-                                <li><a className="dropdown-item" href="/forgot-password">Forgot Password</a></li>
-                                <li><hr className="dropdown-divider" /></li>
-                                <li><a className="dropdown-item" href="/update-profile">Update Profile</a></li>
-                            </ul>
-                        </div>
-                        <div className="container-fluid">
-                            <button
-                                className="navbar-toggler"
-                                type="button"
-                                data-bs-toggle='collapse'
-                                data-bs-target='#toggleMobileMenu'
-                                aria-controls="toggleMobileMenu"
-                                aria-expanded='false'
-                                aria-label="Toggle navigation"
-                            >
-                                <span className="navbar-toggler-icon navbar-dark"></span>
-                            </button>
-                            <div className="collapse navbar-collapse" id="toggleMobileMenu">
-                                <ul className="navbar-nav text-center">
-                                    {currentUser ?
-                                        <li>
-                                            <Link className={`nav-link btn btnForm rounded text-decoration-none px-4 m-1 text-light ${state.page === "/" ? "bg-light text-dark" : ""}`} to="/" onClick={() => {
-                                                dispatch({
-                                                    type: UPDATE_PAGE,
-                                                    page: "/"
-                                                })
-                                            }
-                                            }>DASHBOARD</Link>
-                                        </li>
+                                {
+                                    currentUser ?
+                                        <img data-v-e065c6ac="" className="rounded-full overflow-hidden" src="./assets/images/avatar.png" alt="Avatar" width="1065" height="1065" id="avatar" style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
                                         :
+                                        <svg data-v-58fcffdf="" data-v-e065c6ac="" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" class="icon large text-icon-contrast text-undefined" id="avatar"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m8-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path></svg>
+                                }
+                            </button>
+                            {
+                                currentUser ?
+                                    <ul className="dropdown-menu dropdown-menu-end">
+                                        <h5 className="text-center">{state.username ?? "No Linked Account"}</h5>
+                                        <li><hr className="dropdown-divider" /></li>
                                         <li>
-                                            <Link className={`nav-link btn btnForm rounded text-decoration-none px-4 m-1 text-light ${state.page === "/login" ? "bg-light text-dark" : ""}`} to="/login" onClick={() => {
+                                            <Link className="dropdown-item" to="/" onClick={() => {
                                                 dispatch({
                                                     type: UPDATE_PAGE,
-                                                    page: "/login"
+                                                    page: "Dashboard"
                                                 })
                                             }
-                                            }>LOG IN</Link>
-                                        </li>}
-                                    {currentUser ?
-                                        <li>
-                                            <Link className={`nav-link btn btnForm rounded text-decoration-none px-4 m-1 text-light`} to="/" onClick={handleLogout}>LOG OUT</Link>
+                                            }>Dashboard</Link>
                                         </li>
-                                        :
-                                        <li>
-                                            <Link className={`nav-link btn btnForm rounded text-decoration-none px-4 m-1 text-light ${state.page === "/signup" ? "bg-light text-dark" : ""}`} to="/signup" onClick={() => {
-                                                dispatch({
-                                                    type: UPDATE_PAGE,
-                                                    page: "/signup"
-                                                })
-                                            }
-                                            }>SIGN UP</Link>
-                                        </li>}
-                                </ul>
-                            </div>
+                                        <li><hr className="dropdown-divider" /></li>
+                                        <li><Link className={`dropdown-item`} to="/" onClick={() => {
+                                            dispatch({
+                                                type: UPDATE_PAGE,
+                                                page: "Sign In"
+                                            })
+                                            handleLogout()
+                                        }}>
+                                            <svg data-v-58fcffdf="" data-v-23b03fcb="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="icon text-icon-contrast text-undefined mr-2"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14 5-5-5-5m5 5H9"></path></svg>
+                                            Sign Out
+                                        </Link></li>
+                                    </ul>
+                                    :
+                                    <ul className="dropdown-menu">
+                                        <li><hr className="dropdown-divider" /></li>
+                                        <li><Link className="dropdown-item" to="/login" onClick={() => {
+                                            dispatch({
+                                                type: UPDATE_PAGE,
+                                                page: "Sign In"
+                                            })
+                                        }
+                                        }>Sign In</Link></li>
+                                        <li><Link className="dropdown-item" to="/signup" onClick={() => {
+                                            dispatch({
+                                                type: UPDATE_PAGE,
+                                                page: "Sign Up"
+                                            })
+                                        }
+                                        }>Sign Up</Link></li>
+                                        <li><hr className="dropdown-divider" /></li>
+                                        <li><Link className="dropdown-item" to="/forgot-password" onClick={() => {
+                                            dispatch({
+                                                type: UPDATE_PAGE,
+                                                page: "Password Recovery"
+                                            })
+                                        }
+                                        }>Forgot Password</Link></li>
+                                    </ul>
+                            }
                         </div>
                     </nav>
                 </div>
