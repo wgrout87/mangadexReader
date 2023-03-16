@@ -41,8 +41,6 @@ export default function Login() {
         localStorage.setItem('username', username);
         localStorage.setItem('password', password);
 
-        console.log(username);
-
         creds.username = username;
         creds.password = password;
         dispatch({

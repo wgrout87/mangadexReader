@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Card, Button } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
-import { UPDATE_PAGE } from "../utils/actions";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
+import { UPDATE_USERNAME_AND_PASSWORD } from "../utils/actions";
 
 export default function Dashboard() {
     const [state, dispatch] = useSiteContext();
@@ -12,15 +12,19 @@ export default function Dashboard() {
     const navigate = useNavigate();
     const baseUrl = state.baseUrl;
 
+
     useEffect(() => {
-        if (!state.username && state.page === "Dashboard") {
+        const username = state.username ?? window.localStorage.getItem('username');
+        const password = state.password ?? window.localStorage.getItem('password');
+        dispatch({
+            type: UPDATE_USERNAME_AND_PASSWORD,
+            username: username,
+            password: password
+        });
+        if (!username && !password) {
             navigate('/link-account');
-            dispatch({
-                type: UPDATE_PAGE,
-                page: "Link Account"
-            })
         }
-    }, [state, navigate, dispatch])
+    }, [dispatch, navigate])
 
     return (
         <>
