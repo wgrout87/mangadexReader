@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { UPDATE_PAGE } from "../utils/actions";
 import { useSiteContext } from "../utils/GlobalState";
 
 export default function Login() {
@@ -16,10 +15,6 @@ export default function Login() {
 
     useEffect(() => {
         if (currentUser) {
-            dispatch({
-                type: UPDATE_PAGE,
-                page: "Dashboard"
-            })
             navigate('/');
         }
     }, [currentUser, navigate, dispatch])
@@ -56,23 +51,12 @@ export default function Login() {
                         <Button disabled={loading} className='w-100' type='submit'>Sign In</Button>
                     </Form>
                     <div className="w-100 text-center mt-2">
-                        <Link className="dropdown-item text-light" to="/forgot-password" onClick={() => {
-                            dispatch({
-                                type: UPDATE_PAGE,
-                                page: "Password Reset"
-                            })
-                        }
-                        }>Forgot Password</Link>
+                        <Link className="dropdown-item text-light" to="/forgot-password">Forgot Password</Link>
                     </div>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Need an account? <Link to='/signup' onClick={() => {
-                    dispatch({
-                        type: UPDATE_PAGE,
-                        page: "Sign Up"
-                    })
-                }}>Sign Up</Link>
+                Need an account? <Link to='/signup'>Sign Up</Link>
             </div>
         </>
     )

@@ -2,8 +2,6 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { useSiteContext } from "../utils/GlobalState";
-import { UPDATE_PAGE } from "../utils/actions";
 
 export default function Signup() {
     const emailRef = useRef();
@@ -13,7 +11,6 @@ export default function Signup() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const [, dispatch] = useSiteContext();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -58,12 +55,7 @@ export default function Signup() {
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Already have an account? <Link to='/signin' onClick={() => {
-                    dispatch({
-                        type: UPDATE_PAGE,
-                        page: "Sign In"
-                    })
-                }}>Sign In</Link>
+                Already have an account? <Link to='/signin'>Sign In</Link>
             </div>
         </>
     )

@@ -1,18 +1,11 @@
 import { useReducer } from "react";
 import {
-    UPDATE_PAGE,
     UPDATE_USERNAME_AND_PASSWORD,
     UPDATE_SESSION_TOKEN_ETC,
 } from "./actions";
 
 export const reducer = (state, action) => {
     switch (action.type) {
-        case UPDATE_PAGE:
-            return {
-                ...state,
-                page: action.page,
-            };
-
         case UPDATE_USERNAME_AND_PASSWORD:
             return {
                 ...state,

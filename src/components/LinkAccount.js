@@ -3,7 +3,7 @@ import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
-import { UPDATE_PAGE, UPDATE_USERNAME_AND_PASSWORD, UPDATE_SESSION_TOKEN_ETC } from "../utils/actions";
+import { UPDATE_USERNAME_AND_PASSWORD, UPDATE_SESSION_TOKEN_ETC } from "../utils/actions";
 
 export default function Login() {
     const [state, dispatch] = useSiteContext();
@@ -16,13 +16,9 @@ export default function Login() {
 
     useEffect(() => {
         if (state.username) {
-            dispatch({
-                type: UPDATE_PAGE,
-                page: "Dashboard"
-            })
             navigate('/');
         }
-    }, [state, navigate, dispatch])
+    }, [state, navigate])
 
     const creds = {
         username: "",
