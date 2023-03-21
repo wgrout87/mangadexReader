@@ -16,12 +16,14 @@ export default function Dashboard() {
     useEffect(() => {
         const username = state.username ?? window.localStorage.getItem('username');
         const password = state.password ?? window.localStorage.getItem('password');
+        const expires = state.expires ?? window.localStorage.getItem('expires');
+        console.log(state.expires);
         dispatch({
             type: UPDATE_USERNAME_AND_PASSWORD,
             username: username,
             password: password
         });
-        if (!username && !password) {
+        if ((!username && !password) || expires < new Date()) {
             navigate('/link-account');
         }
     }, [dispatch, navigate])

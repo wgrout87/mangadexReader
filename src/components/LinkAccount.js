@@ -15,7 +15,7 @@ export default function Login() {
     const baseUrl = state.baseUrl;
 
     useEffect(() => {
-        if (state.username) {
+        if (state.username && state.expires > new Date()) {
             navigate('/');
         }
     }, [state, navigate])
@@ -59,6 +59,8 @@ export default function Login() {
                 sessionToken = resp.data.token.session;
                 expires = new Date().valueOf() + 15 * 60000
                 refreshToken = resp.data.token.refresh;
+
+                localStorage.setItem('expires', expires);
 
                 dispatch({
                     type: UPDATE_SESSION_TOKEN_ETC,
