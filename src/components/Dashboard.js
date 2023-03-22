@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
 import { UPDATE_EVERYTHING } from "../utils/actions";
+import { sessionIsExpired } from "../utils/helpers";
 
 export default function Dashboard() {
     const [state, dispatch] = useSiteContext();
@@ -16,19 +17,36 @@ export default function Dashboard() {
     useEffect(() => {
         const username = state.username ?? window.localStorage.getItem('username');
         const password = state.password ?? window.localStorage.getItem('password');
-        const sessionToken = state.sessionToken ?? window.localStorage.getItem('sessionToken');
-        const expires = state.expires ?? window.localStorage.getItem('expires');
-        const refreshToken = state.refreshToken ?? window.localStorage.getItem('refreshToken');
-        console.log(expires);
-        dispatch({
-            type: UPDATE_EVERYTHING,
-            username: username,
-            password: password,
-            sessionToken: sessionToken,
-            expires: expires,
-            refreshToken: refreshToken,
-        });
-        if ((!username && !password) || expires < new Date()) {
+        let sessionToken = state.sessionToken ?? window.localStorage.getItem('sessionToken');
+        let expires = state.expires ?? window.localStorage.getItem('expires');
+        let refreshToken = state.refreshToken ?? window.localStorage.getItem('refreshToken');
+        if (sessionIsExpired(expires)) {
+            (console.log("Session Refreshed"));
+            (async () => {
+                const resp = await axios({
+                    method: 'POST',
+                    url: `${baseUrl}/auth/refresh`,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        token: refreshToken
+                    }
+                });
+
+                sessionToken = resp.data.token.session;
+                expires = new Date().valueOf() + 15 * 60000
+                dispatch({
+                    type: UPDATE_EVERYTHING,
+                    username: username,
+                    password: password,
+                    sessionToken: sessionToken,
+                    expires: expires,
+                    refreshToken: refreshToken,
+                });
+            })()
+        };
+        if ((!username && !password) || sessionIsExpired(expires)) {
             navigate('/link-account');
         }
     }, [])
