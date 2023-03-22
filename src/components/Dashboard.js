@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
-import { UPDATE_USERNAME_AND_PASSWORD, UPDATE_SESSION_TOKEN_ETC } from "../utils/actions";
+import { UPDATE_EVERYTHING } from "../utils/actions";
 
 export default function Dashboard() {
     const [state, dispatch] = useSiteContext();
@@ -21,12 +21,9 @@ export default function Dashboard() {
         const refreshToken = state.refreshToken ?? window.localStorage.getItem('refreshToken');
         console.log(expires);
         dispatch({
-            type: UPDATE_USERNAME_AND_PASSWORD,
+            type: UPDATE_EVERYTHING,
             username: username,
-            password: password
-        });
-        dispatch({
-            type: UPDATE_SESSION_TOKEN_ETC,
+            password: password,
             sessionToken: sessionToken,
             expires: expires,
             refreshToken: refreshToken,
