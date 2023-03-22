@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
-import { UPDATE_USERNAME_AND_PASSWORD } from "../utils/actions";
+import { UPDATE_USERNAME_AND_PASSWORD, UPDATE_SESSION_TOKEN_ETC } from "../utils/actions";
 
 export default function Dashboard() {
     const [state, dispatch] = useSiteContext();
@@ -16,17 +16,25 @@ export default function Dashboard() {
     useEffect(() => {
         const username = state.username ?? window.localStorage.getItem('username');
         const password = state.password ?? window.localStorage.getItem('password');
+        const sessionToken = state.sessionToken ?? window.localStorage.getItem('sessionToken');
         const expires = state.expires ?? window.localStorage.getItem('expires');
-        console.log(state.expires);
+        const refreshToken = state.refreshToken ?? window.localStorage.getItem('refreshToken');
+        console.log(expires);
         dispatch({
             type: UPDATE_USERNAME_AND_PASSWORD,
             username: username,
             password: password
         });
+        dispatch({
+            type: UPDATE_SESSION_TOKEN_ETC,
+            sessionToken: sessionToken,
+            expires: expires,
+            refreshToken: refreshToken,
+        });
         if ((!username && !password) || expires < new Date()) {
             navigate('/link-account');
         }
-    }, [dispatch, navigate])
+    }, [])
 
     return (
         <>
