@@ -60,6 +60,10 @@ export default function Login() {
                 expires = new Date().valueOf() + 15 * 60000
                 refreshToken = resp.data.token.refresh;
 
+                localStorage.setItem('sessionToken', sessionToken);
+                localStorage.setItem('expires', expires);
+                localStorage.setItem('refreshToken', refreshToken);
+
                 localStorage.setItem('expires', expires);
 
                 dispatch({
