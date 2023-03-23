@@ -22,7 +22,7 @@ export default function Dashboard() {
         let refreshToken = state.refreshToken ?? window.localStorage.getItem('refreshToken');
         if (sessionIsExpired(expires)) {
             (console.log("Session Refreshed"));
-            (async () => {
+            let refreshSession = async () => {
                 const resp = await axios({
                     method: 'POST',
                     url: `${baseUrl}/auth/refresh`,
@@ -34,8 +34,13 @@ export default function Dashboard() {
                     }
                 });
 
+                return resp;
+            };
+
+            refreshSession().then(resp => {
                 sessionToken = resp.data.token.session;
                 expires = new Date().valueOf() + 15 * 60000
+                console.log(sessionToken);
                 dispatch({
                     type: UPDATE_EVERYTHING,
                     username: username,
@@ -44,9 +49,9 @@ export default function Dashboard() {
                     expires: expires,
                     refreshToken: refreshToken,
                 });
-            })()
+            })
         };
-        if ((!username && !password) || sessionIsExpired(expires)) {
+        if (!username && !password) {
             navigate('/link-account');
         }
     }, [])
