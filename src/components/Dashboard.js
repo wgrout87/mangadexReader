@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Button } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import { sessionIsExpired } from "../utils/helpers";
 
 export default function Dashboard() {
     const [state, dispatch] = useSiteContext();
+    const [refreshingSession, setRefreshingSession] = useState(false);
     const { currentUser } = useAuth();
     const navigate = useNavigate();
     const baseUrl = state.baseUrl;
@@ -23,6 +24,7 @@ export default function Dashboard() {
         if (sessionIsExpired(expires)) {
             (console.log("Session Refreshed"));
             let refreshSession = async () => {
+                setRefreshingSession(true);
                 const resp = await axios({
                     method: 'POST',
                     url: `${baseUrl}/auth/refresh`,
@@ -34,13 +36,13 @@ export default function Dashboard() {
                     }
                 });
 
+                setRefreshingSession(false);
                 return resp;
             };
 
             refreshSession().then(resp => {
                 sessionToken = resp.data.token.session;
                 expires = new Date().valueOf() + 15 * 60000
-                console.log(sessionToken);
                 dispatch({
                     type: UPDATE_EVERYTHING,
                     username: username,
@@ -64,7 +66,7 @@ export default function Dashboard() {
                     <strong>Email:</strong> {currentUser.email}
                 </Card.Body>
             </Card>
-            <Button onClick={() => {
+            <Button disabled={refreshingSession} onClick={() => {
                 (async () => {
                     const resp = await axios({
                         method: 'GET',
@@ -77,7 +79,9 @@ export default function Dashboard() {
 
                     console.log(resp.data);
                 })()
-            }}>Get Feed</Button>
+            }}>
+                {refreshingSession ? <span className="spinner-border spinner-border-sm"></span> : <span>Get Feed</span>}
+            </Button>
         </>
     )
 }
