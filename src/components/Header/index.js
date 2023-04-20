@@ -74,9 +74,6 @@ const Header = () => {
                         </nav>
                     </div>
                 </div>
-                <div className="w-100 bg-less-dark d-flex flex-row">
-                    <h5 className="text-light ms-5 mt-1">{state.page}</h5>
-                </div>
             </header>
             {error && <Alert variant='danger'>{error}</Alert>}
         </>

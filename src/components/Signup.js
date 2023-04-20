@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import Subheader from "./Header/Subheader";
 
 export default function Signup() {
     const emailRef = useRef();
@@ -33,6 +34,7 @@ export default function Signup() {
 
     return (
         <>
+            <Subheader subheader="Sign Up" />
             <Card className="bg-dark">
                 <Card.Body>
                     <h2 className="text-center mb-4">Sign Up</h2>

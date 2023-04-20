@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import Subheader from "./Header/Subheader";
 
 export default function ForgotPassword() {
     const emailRef = useRef();
@@ -28,6 +29,7 @@ export default function ForgotPassword() {
 
     return (
         <>
+            <Subheader subheader="Password Reset" />
             <Card className="bg-dark">
                 <Card.Body>
                     <h2 className="text-center mb-4">Password Reset</h2>

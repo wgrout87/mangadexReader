@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
 import { UPDATE_EVERYTHING } from "../utils/actions";
 import { sessionIsExpired } from "../utils/helpers";
+import Subheader from "./Header/Subheader";
 
 export default function Dashboard() {
     const [state, dispatch] = useSiteContext();
@@ -72,6 +73,7 @@ export default function Dashboard() {
 
     return (
         <>
+            <Subheader subheader="Dashboard" />
             <Card className="bg-dark">
                 <Card.Body>
                     <h2 className="text-center mb-4">Dashboard</h2>

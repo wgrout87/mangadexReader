@@ -3,6 +3,7 @@ import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useSiteContext } from "../utils/GlobalState";
+import Subheader from "./Header/Subheader";
 
 export default function Login() {
     const emailRef = useRef();
@@ -35,6 +36,7 @@ export default function Login() {
 
     return (
         <>
+            <Subheader subheader="Sign In" />
             <Card className="bg-dark">
                 <Card.Body>
                     <h2 className="text-center mb-4">Sign In</h2>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
 import { UPDATE_USERNAME_AND_PASSWORD, UPDATE_SESSION_TOKEN_ETC } from "../utils/actions";
+import Subheader from "./Header/Subheader";
 
 export default function Login() {
     const [state, dispatch] = useSiteContext();
@@ -83,6 +84,7 @@ export default function Login() {
 
     return (
         <>
+            <Subheader subheader="Link MangaDex Account" />
             <Card className="bg-dark">
                 <Card.Body>
                     <h2 className="text-center mb-4">Link MangaDex Account</h2>
