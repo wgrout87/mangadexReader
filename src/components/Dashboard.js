@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
-import { UPDATE_EVERYTHING } from "../utils/actions";
+import { UPDATE_HISTORY, UPDATE_EVERYTHING } from "../utils/actions";
 import { sessionIsExpired } from "../utils/helpers";
 import Subheader from "./Header/Subheader";
 import MangaCard from "./MangaCard";
@@ -17,8 +17,6 @@ export default function Dashboard() {
     const baseUrl = state.baseUrl;
     const idRef = useRef();
 
-    console.log(idRef);
-
     let getFeed = (async () => {
         const resp = await axios({
             method: 'GET',
@@ -29,13 +27,10 @@ export default function Dashboard() {
             },
         });
 
-        idRef.current = resp.data.data[0].id;
-        if (idRef.current) {
-            console.log("true");
-        };
-        console.log(idRef.current);
-
-        return resp.data.data;
+        idRef.current = resp.data.data[0].id; dispatch({
+            type: UPDATE_HISTORY,
+            history: idRef
+        });
     });
 
     useEffect(() => {
@@ -95,7 +90,7 @@ export default function Dashboard() {
             }}>
                 {refreshingSession ? <span className="spinner-border spinner-border-sm"></span> : <span>Get Feed</span>}
             </Button>
-            {idRef.current && <MangaCard id={idRef.current} />}
+            {state.history && <MangaCard id={state.history} />}
         </>
     )
 }

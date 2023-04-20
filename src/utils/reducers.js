@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import {
     UPDATE_USERNAME_AND_PASSWORD,
     UPDATE_SESSION_TOKEN_ETC,
+    UPDATE_HISTORY,
     UPDATE_EVERYTHING,
 } from "./actions";
 
@@ -21,6 +22,12 @@ export const reducer = (state, action) => {
                 expires: action.expires,
                 refreshToken: action.refreshToken,
             };
+
+        case UPDATE_HISTORY:
+            return {
+                ...state,
+                history: action.history
+            }
 
         case UPDATE_EVERYTHING:
             return {
