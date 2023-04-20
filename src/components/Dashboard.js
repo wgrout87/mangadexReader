@@ -17,6 +17,10 @@ export default function Dashboard() {
     const baseUrl = state.baseUrl;
     const idRef = useRef();
 
+    useEffect(() => {
+        console.log(state.sessionToken)
+    }, [state.sessionToken]);
+
     let getFeed = (async () => {
         const resp = await axios({
             method: 'GET',
@@ -31,6 +35,10 @@ export default function Dashboard() {
             type: UPDATE_HISTORY,
             history: idRef
         });
+
+        console.log(state.history);
+
+        return resp.data.data;
     });
 
     useEffect(() => {
@@ -59,6 +67,7 @@ export default function Dashboard() {
             };
 
             refreshSession().then(resp => {
+                console.log("Session Refreshed");
                 sessionToken = resp.data.token.session;
                 expires = new Date().valueOf() + 15 * 60000
                 dispatch({
@@ -90,7 +99,7 @@ export default function Dashboard() {
             }}>
                 {refreshingSession ? <span className="spinner-border spinner-border-sm"></span> : <span>Get Feed</span>}
             </Button>
-            {state.history && <MangaCard id={state.history} />}
+            {/* {state.history && <MangaCard id={state.history} />} */}
         </>
     )
 }
