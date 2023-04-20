@@ -17,11 +17,8 @@ export default function Dashboard() {
     const baseUrl = state.baseUrl;
     const idRef = useRef();
 
-    useEffect(() => {
-        console.log(state.sessionToken)
-    }, [state.sessionToken]);
-
     let getFeed = (async () => {
+        console.log(state.sessionToken);
         const resp = await axios({
             method: 'GET',
             url: `${baseUrl}/user/follows/manga/feed?limit=20&translatedLanguage%5B%5D=en&contentRating%5B%5D=safe&contentRating%5B%5D=suggestive&includeFutureUpdates=1&order%5BcreatedAt%5D=desc&order%5BupdatedAt%5D=desc&order%5BpublishAt%5D=desc&order%5BreadableAt%5D=desc&order%5Bvolume%5D=desc&order%5Bchapter%5D=desc`,
@@ -36,7 +33,6 @@ export default function Dashboard() {
             history: idRef
         });
 
-        console.log(state.history);
 
         return resp.data.data;
     });
@@ -47,7 +43,7 @@ export default function Dashboard() {
         let sessionToken = state.sessionToken ?? window.localStorage.getItem('sessionToken');
         let expires = state.expires ?? window.localStorage.getItem('expires');
         let refreshToken = state.refreshToken ?? window.localStorage.getItem('refreshToken');
-        if (sessionIsExpired(expires)) {
+        if (sessionIsExpired(expires) || !state.sessionToken) {
             (console.log("Session Refreshed"));
             let refreshSession = async () => {
                 setRefreshingSession(true);
@@ -69,7 +65,7 @@ export default function Dashboard() {
             refreshSession().then(resp => {
                 console.log("Session Refreshed");
                 sessionToken = resp.data.token.session;
-                expires = new Date().valueOf() + 15 * 60000
+                expires = new Date().valueOf() + 15 * 60000;
                 dispatch({
                     type: UPDATE_EVERYTHING,
                     username: username,
@@ -83,6 +79,7 @@ export default function Dashboard() {
         if (!username && !password) {
             navigate('/link-account');
         }
+        console.log(state)
     }, [])
 
     return (
@@ -99,7 +96,7 @@ export default function Dashboard() {
             }}>
                 {refreshingSession ? <span className="spinner-border spinner-border-sm"></span> : <span>Get Feed</span>}
             </Button>
-            {/* {state.history && <MangaCard id={state.history} />} */}
+            {state.history && <MangaCard id={state.history} />}
         </>
     )
 }

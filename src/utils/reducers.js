@@ -27,7 +27,7 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 history: action.history
-            }
+            };
 
         case UPDATE_EVERYTHING:
             return {
@@ -37,7 +37,7 @@ export const reducer = (state, action) => {
                 sessionToken: action.sessionToken,
                 expires: action.expires,
                 refreshToken: action.refreshToken,
-            }
+            };
 
         default:
             return {
