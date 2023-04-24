@@ -15,7 +15,7 @@ export default function Dashboard() {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
     const baseUrl = state.baseUrl;
-    const idRef = useRef();
+    const mangaRef = useRef();
 
     let getFeed = (async () => {
         console.log(state.sessionToken);
@@ -28,13 +28,13 @@ export default function Dashboard() {
             },
         });
 
-        idRef.current = resp.data.data[0].id;
+        mangaRef.current = resp.data.data[0].relationships[1].id;
         dispatch({
             type: UPDATE_HISTORY,
-            history: idRef.current
+            history: mangaRef.current
         });
 
-        console.log("idRef: ", idRef)
+        console.log("mangaRef: ", mangaRef)
 
         return resp.data.data;
     });
@@ -46,7 +46,6 @@ export default function Dashboard() {
         let expires = state.expires ?? window.localStorage.getItem('expires');
         let refreshToken = state.refreshToken ?? window.localStorage.getItem('refreshToken');
         if (sessionIsExpired(expires) || !state.sessionToken) {
-            (console.log("Session Refreshed"));
             let refreshSession = async () => {
                 setRefreshingSession(true);
                 const resp = await axios({

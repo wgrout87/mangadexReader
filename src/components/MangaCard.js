@@ -10,7 +10,7 @@ export default function MangaCard(props) {
     let getChapter = (async () => {
         const resp = await axios({
             method: 'GET',
-            url: `${baseUrl}/chapter/${props.id}`,
+            url: `${baseUrl}/manga/${props.id}?includes[]=author&includes[]=artist&includes[]=cover_art`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${state.sessionToken}`
@@ -20,14 +20,7 @@ export default function MangaCard(props) {
         return resp.data.data;
     });
 
-    useEffect(() => {
-        console.log(props.id);
-        if (props.id) {
-            console.log(getChapter());
-        }
-    }, [props.id])
-
-    console.log("MangaCard created!");
+    getChapter().then(resp => console.log(resp));
 
     return <Card className="bg-dark">
         <Card.Body>
