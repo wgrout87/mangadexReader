@@ -28,11 +28,13 @@ export default function Dashboard() {
             },
         });
 
-        idRef.current = resp.data.data[0].id; dispatch({
+        idRef.current = resp.data.data[0].id;
+        dispatch({
             type: UPDATE_HISTORY,
-            history: idRef
+            history: idRef.current
         });
 
+        console.log("idRef: ", idRef)
 
         return resp.data.data;
     });
