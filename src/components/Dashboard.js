@@ -8,6 +8,7 @@ import { UPDATE_HISTORY, UPDATE_EVERYTHING } from "../utils/actions";
 import { sessionIsExpired } from "../utils/helpers";
 import Subheader from "./Header/Subheader";
 import MangaCard from "./MangaCard";
+import History from "./Feeds/History";
 
 export default function Dashboard() {
     const [state, dispatch] = useSiteContext();
@@ -105,6 +106,7 @@ export default function Dashboard() {
                 {refreshingSession ? <span className="spinner-border spinner-border-sm"></span> : <span>Get Feed</span>}
             </Button>
             {/* {state.history && <MangaCard id={state.history} />} */}
+            <History />
         </>
     )
 }
