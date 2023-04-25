@@ -24,7 +24,6 @@ export default function MangaCard(props) {
     });
 
     getChapter().then(resp => {
-        console.log(resp, resp.id, resp.relationships[2].attributes.fileName)
         setMangaCoverId(resp.id);
         setMangaCoverFileName(resp.relationships[2].attributes.fileName)
     });

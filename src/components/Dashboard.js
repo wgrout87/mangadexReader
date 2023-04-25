@@ -12,23 +12,24 @@ import MangaCard from "./MangaCard";
 export default function Dashboard() {
     const [state, dispatch] = useSiteContext();
     const [refreshingSession, setRefreshingSession] = useState(false);
+    const [sessionRefreshed, setSessionRefreshed] = useState(false);
     const { currentUser } = useAuth();
     const navigate = useNavigate();
     const baseUrl = state.baseUrl;
     const mangaRef = useRef();
 
     let getFeed = (async () => {
-        console.log(state.sessionToken);
+        // console.log(state.sessionToken);
         const resp = await axios({
             method: 'GET',
-            url: `${baseUrl}/user/follows/manga/feed?limit=20&translatedLanguage%5B%5D=en&contentRating%5B%5D=safe&contentRating%5B%5D=suggestive&includeFutureUpdates=1&order%5BcreatedAt%5D=desc&order%5BupdatedAt%5D=desc&order%5BpublishAt%5D=desc&order%5BreadableAt%5D=desc&order%5Bvolume%5D=desc&order%5Bchapter%5D=desc`,
+            url: `${baseUrl}/user/follows/manga/feed?limit=20&translatedLanguage%5B%5D=en&contentRating%5B%5D=safe&contentRating%5B%5D=suggestive&includeFutureUpdates=1&order%5BcreatedAt%5D=desc&order%5BupdatedAt%5D=desc&order%5BpublishAt%5D=desc&order%5BreadableAt%5D=desc&order%5Bvolume%5D=desc&order%5Bchapter%5D=desc&`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${state.sessionToken}`
             },
         });
 
-        mangaRef.current = resp.data.data[0].relationships[1].id;
+        mangaRef.current = resp.data.data;
         dispatch({
             type: UPDATE_HISTORY,
             history: mangaRef.current
@@ -60,6 +61,7 @@ export default function Dashboard() {
                 });
 
                 setRefreshingSession(false);
+                setSessionRefreshed(true);
                 return resp;
             };
 
@@ -80,8 +82,13 @@ export default function Dashboard() {
         if (!username && !password) {
             navigate('/link-account');
         }
-        console.log(state)
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (sessionRefreshed) {
+            getFeed().then(resp => console.log(resp));
+        }
+    }, [sessionRefreshed]);
 
     return (
         <>
@@ -97,7 +104,7 @@ export default function Dashboard() {
             }}>
                 {refreshingSession ? <span className="spinner-border spinner-border-sm"></span> : <span>Get Feed</span>}
             </Button>
-            {state.history && <MangaCard id={state.history} />}
+            {/* {state.history && <MangaCard id={state.history} />} */}
         </>
     )
 }
