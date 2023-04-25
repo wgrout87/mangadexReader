@@ -3,9 +3,10 @@ import { useSiteContext } from "../../utils/GlobalState";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import MangaCard from "../MangaCard";
+import { findObjByType } from "../../utils/helpers";
 
 export default function History() {
-    const [state, dispatch] = useSiteContext();
+    const [state] = useSiteContext();
     const [historyObtained, setHistoryObtained] = useState(false);
 
     useEffect(() => {
@@ -18,15 +19,15 @@ export default function History() {
         <Swiper
             spaceBetween={50}
             slidesPerView={3}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log('slide change')}
+        // onSwiper={(swiper) => console.log(swiper)}
         >
             {!historyObtained ? (
                 <h2>Loading...</h2>
             ) : (
                 state.history.map((manga, index) =>
-                    <SwiperSlide>
-                        <MangaCard key={manga.id + index} id={manga.id} />
+                    <SwiperSlide key={index + findObjByType(manga.relationships, "manga").id}>
+                        <MangaCard id={findObjByType(manga.relationships, "manga").id} index={index} />
                     </SwiperSlide>
                 )
             )}

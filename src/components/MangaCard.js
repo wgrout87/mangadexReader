@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
+import { findObjByType } from "../utils/helpers";
 
 export default function MangaCard(props) {
     const [state] = useSiteContext();
@@ -25,12 +26,12 @@ export default function MangaCard(props) {
 
     getChapter().then(resp => {
         setMangaCoverId(resp.id);
-        setMangaCoverFileName(resp.relationships[2].attributes.fileName)
+        setMangaCoverFileName(findObjByType(resp.relationships, "cover_art").attributes.fileName)
     });
 
     return <Card className="bg-dark">
         <Card.Body>
-            <h2 className="text-center mb-4">Dashboard</h2>
+            <h2 className="text-center mb-4">{`${props.index + 1}`}</h2>
             <img src={`https://uploads.mangadex.org/covers/${mangaCoverId}/${mangaCoverFileName}`} alt="manga cover" />
         </Card.Body>
     </Card>
