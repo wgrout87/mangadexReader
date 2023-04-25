@@ -32,7 +32,7 @@ export default function MangaCard(props) {
     return <Card className="bg-dark">
         <Card.Body>
             <h2 className="text-center mb-4">{`${props.index + 1}`}</h2>
-            <img src={`https://uploads.mangadex.org/covers/${mangaCoverId}/${mangaCoverFileName}`} alt="manga cover" />
+            <img src={`https://uploads.mangadex.org/covers/${mangaCoverId}/${mangaCoverFileName}.256.jpg`} alt="manga cover" />
         </Card.Body>
     </Card>
 }
