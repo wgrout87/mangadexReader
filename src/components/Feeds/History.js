@@ -21,6 +21,11 @@ export default function History() {
             <Swiper
                 spaceBetween={20}
                 slidesPerView={2.5}
+                breakpoints={{
+                    768: {
+                        slidesPerView: 6.5
+                    }
+                }}
             // onSlideChange={() => console.log('slide change')}
             // onSwiper={(swiper) => console.log(swiper)}
             >
