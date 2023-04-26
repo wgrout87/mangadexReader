@@ -16,25 +16,28 @@ export default function History() {
     }, [setHistoryObtained, state])
 
     return (
-        <Swiper
-            spaceBetween={50}
-            slidesPerView={3}
-        // onSlideChange={() => console.log('slide change')}
-        // onSwiper={(swiper) => console.log(swiper)}
-        >
-            {!historyObtained ? (
-                <h2>Loading...</h2>
-            ) : (
-                state.history.map((manga, index) =>
-                    <SwiperSlide key={index + findObjByType(manga.relationships, "manga").id}>
-                        <MangaCard id={findObjByType(manga.relationships, "manga").id} index={index} />
-                    </SwiperSlide>
-                )
-            )}
-            {/* <SwiperSlide>Slide 1</SwiperSlide>
+        <>
+            <h2>History</h2>
+            <Swiper
+                spaceBetween={20}
+                slidesPerView={2.5}
+            // onSlideChange={() => console.log('slide change')}
+            // onSwiper={(swiper) => console.log(swiper)}
+            >
+                {!historyObtained ? (
+                    <h2>Loading...</h2>
+                ) : (
+                    state.history.map((manga, index) =>
+                        <SwiperSlide key={index + findObjByType(manga.relationships, "manga").id}>
+                            <MangaCard id={findObjByType(manga.relationships, "manga").id} index={index} />
+                        </SwiperSlide>
+                    )
+                )}
+                {/* <SwiperSlide>Slide 1</SwiperSlide>
             <SwiperSlide>Slide 2</SwiperSlide>
             <SwiperSlide>Slide 3</SwiperSlide>
             <SwiperSlide>Slide 4</SwiperSlide> */}
-        </Swiper>
+            </Swiper>
+        </>
     )
 }

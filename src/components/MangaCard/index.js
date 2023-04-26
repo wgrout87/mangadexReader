@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Card, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { useSiteContext } from "../utils/GlobalState";
-import { findObjByType } from "../utils/helpers";
+import { useSiteContext } from "../../utils/GlobalState";
+import { findObjByType } from "../../utils/helpers";
+import "./style.css";
 
 export default function MangaCard(props) {
     const [state] = useSiteContext();

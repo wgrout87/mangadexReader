@@ -36,7 +36,7 @@ export default function Dashboard() {
             history: mangaRef.current
         });
 
-        console.log("mangaRef: ", mangaRef)
+        // console.log("mangaRef: ", mangaRef)
 
         return resp.data.data;
     });
@@ -67,7 +67,7 @@ export default function Dashboard() {
             };
 
             refreshSession().then(resp => {
-                console.log("Session Refreshed");
+                // console.log("Session Refreshed");
                 sessionToken = resp.data.token.session;
                 expires = new Date().valueOf() + 15 * 60000;
                 dispatch({
@@ -87,14 +87,14 @@ export default function Dashboard() {
 
     useEffect(() => {
         if (sessionRefreshed) {
-            getFeed().then(resp => console.log(resp));
+            getFeed();
         }
     }, [sessionRefreshed]);
 
     return (
         <>
             <Subheader subheader="Dashboard" />
-            <Card className="bg-dark">
+            {/* <Card className="bg-dark">
                 <Card.Body>
                     <h2 className="text-center mb-4">Dashboard</h2>
                     <strong>Email:</strong> {currentUser.email}
@@ -104,8 +104,7 @@ export default function Dashboard() {
                 getFeed().then(resp => console.log(resp));
             }}>
                 {refreshingSession ? <span className="spinner-border spinner-border-sm"></span> : <span>Get Feed</span>}
-            </Button>
-            {/* {state.history && <MangaCard id={state.history} />} */}
+            </Button> */}
             <History />
         </>
     )
