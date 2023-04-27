@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSiteContext } from "../../utils/GlobalState";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Mousewheel, Navigation } from "swiper";
+import { Mousewheel, Navigation, FreeMode } from "swiper";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import MangaCard from "../MangaCard";
@@ -21,13 +21,15 @@ export default function History() {
         <>
             <h2>History</h2>
             <Swiper
-                modules={[Navigation, Mousewheel]}
+                modules={[Navigation, Mousewheel, FreeMode]}
                 tag="section"
                 wrapperTag="ul"
                 spaceBetween={20}
                 slidesPerView={2.5}
+                loop={true}
                 navigation
-                mousewheel={true}
+                mousewheel
+                freeMode={{ minimumVelocity: .02 }}
                 breakpoints={{
                     768: {
                         slidesPerView: 6.5
