@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSiteContext } from "../../utils/GlobalState";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide, Mousewheel } from 'swiper/react';
 import 'swiper/css';
 import MangaCard from "../MangaCard";
 import { findObjByType } from "../../utils/helpers";
@@ -19,8 +19,11 @@ export default function History() {
         <>
             <h2>History</h2>
             <Swiper
+                tag="section"
+                wrapperTag="ul"
                 spaceBetween={20}
                 slidesPerView={2.5}
+                mousewheel={true}
                 breakpoints={{
                     768: {
                         slidesPerView: 6.5
@@ -33,7 +36,7 @@ export default function History() {
                     <h2>Loading...</h2>
                 ) : (
                     state.history.map((manga, index) =>
-                        <SwiperSlide key={index + findObjByType(manga.relationships, "manga").id}>
+                        <SwiperSlide key={index + findObjByType(manga.relationships, "manga").id} tag="li">
                             <MangaCard id={findObjByType(manga.relationships, "manga").id} index={index} />
                         </SwiperSlide>
                     )

@@ -12,7 +12,7 @@ export default function MangaCard(props) {
     const [mangaCoverId, setMangaCoverId] = useState();
     const [mangaCoverFileName, setMangaCoverFileName] = useState();
 
-    let getChapter = (async () => {
+    let getCover = (async () => {
         const resp = await axios({
             method: 'GET',
             url: `${baseUrl}/manga/${props.id}?includes[]=author&includes[]=artist&includes[]=cover_art`,
@@ -25,7 +25,7 @@ export default function MangaCard(props) {
         return resp.data.data;
     });
 
-    getChapter().then(resp => {
+    getCover().then(resp => {
         setMangaCoverId(resp.id);
         setMangaCoverFileName(findObjByType(resp.relationships, "cover_art").attributes.fileName)
     });
