@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSiteContext } from "../../utils/GlobalState";
-import { Swiper, SwiperSlide, Mousewheel } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Mousewheel, Navigation, Pagination } from "swiper";
 import 'swiper/css';
 import MangaCard from "../MangaCard";
 import { findObjByType } from "../../utils/helpers";
+
+SwiperCore.use([Navigation, Pagination, Mousewheel]);
 
 export default function History() {
     const [state] = useSiteContext();
@@ -23,6 +26,8 @@ export default function History() {
                 wrapperTag="ul"
                 spaceBetween={20}
                 slidesPerView={2.5}
+                navigation={true}
+                pagination={true}
                 mousewheel={true}
                 breakpoints={{
                     768: {
