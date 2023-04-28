@@ -17,6 +17,8 @@ export default function History() {
         }
     }, [setHistoryObtained, state])
 
+    console.log(state.history);
+
     return (
         <>
             <h2>History</h2>
@@ -43,14 +45,12 @@ export default function History() {
                 ) : (
                     state.history.map((manga, index) =>
                         <SwiperSlide key={index + findObjByType(manga.relationships, "manga").id} tag="li">
-                            <MangaCard id={findObjByType(manga.relationships, "manga").id} index={index} />
+                            <a href={`/manga?${manga.id}`}>
+                                <MangaCard id={findObjByType(manga.relationships, "manga").id} index={index} />
+                            </a>
                         </SwiperSlide>
                     )
                 )}
-                {/* <SwiperSlide>Slide 1</SwiperSlide>
-            <SwiperSlide>Slide 2</SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
-            <SwiperSlide>Slide 4</SwiperSlide> */}
             </Swiper>
         </>
     )
