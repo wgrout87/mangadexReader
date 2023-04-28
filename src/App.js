@@ -28,6 +28,8 @@ function App() {
               <Route path='/update-profile' element={<PrivateRouteUpdateProfile />} />
               <Route path='/link-account' element={<LinkAccount />} />
               <Route path='/trial-feeds' element={<TrialFeeds />} />
+              <Route path='/manga' element={<TrialFeeds />} />
+
             </Routes>
           </AuthProvider>
         </SiteProvider>
