@@ -7,6 +7,7 @@ import PrivateRouteDashboard from './components/PrivateRouteDashboard';
 import ForgotPassword from './components/ForgotPassword';
 import PrivateRouteUpdateProfile from './components/PrivateRouteUpdateProfile';
 import LinkAccount from './components/LinkAccount'
+import TrialFeeds from './components/TrialFeeds'
 
 import { SiteProvider } from './utils/GlobalState';
 
@@ -26,6 +27,7 @@ function App() {
               <Route path='/forgot-password' element={<ForgotPassword />} />
               <Route path='/update-profile' element={<PrivateRouteUpdateProfile />} />
               <Route path='/link-account' element={<LinkAccount />} />
+              <Route path='/trial-feeds' element={<TrialFeeds />} />
             </Routes>
           </AuthProvider>
         </SiteProvider>
