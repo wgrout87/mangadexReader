@@ -7,10 +7,11 @@ import { useSiteContext } from "../utils/GlobalState";
 import { UPDATE_EVERYTHING } from "../utils/actions";
 import { sessionIsExpired } from "../utils/helpers";
 import Subheader from "./Header/Subheader";
-import MangaCard from "./MangaCard";
+import { MangaCardCover, MangaCardLoading } from "./MangaCard";
 
 export default function IndividualManga() {
     const [state, dispatch] = useSiteContext();
+    const [mangaFetched, setMangaFetched] = useState(false);
     const [refreshingSession, setRefreshingSession] = useState(false);
     const [sessionRefreshed, setSessionRefreshed] = useState(false);
     const { currentUser } = useAuth();
@@ -19,7 +20,6 @@ export default function IndividualManga() {
     const titleRef = useRef();
 
     const mangaId = (window.location.search.replace(/^./, ""));
-    console.log(mangaId);
 
     let getManga = async () => {
         const resp = await axios({
@@ -32,7 +32,9 @@ export default function IndividualManga() {
         });
 
         titleRef.current = (resp.data.data.attributes.altTitles.find(element => element.en).en);
-        console.log(titleRef.current);
+        console.log(resp.data.data);
+
+        setMangaFetched(true);
 
         return resp;
     }
@@ -87,8 +89,12 @@ export default function IndividualManga() {
 
     return (
         <>
-            <Subheader subheader={`${titleRef.current}`} />
-            {/* <History /> */}
+            <Subheader subheader={mangaFetched ? (`${titleRef.current}`) : ("Loading...")} />
+            {mangaFetched ? <MangaCardCover
+            // mangaCoverId={ } mangaCoverFileName={ }
+            />
+                :
+                <MangaCardLoading />}
         </>
     )
 }
