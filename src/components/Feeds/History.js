@@ -46,7 +46,7 @@ export default function History() {
                 ) : (
                     state.history.map((manga, index) =>
                         <SwiperSlide key={index + findObjByType(manga.relationships, "manga").id} tag="li">
-                            <Link to={`/manga?${manga.id}`}>
+                            <Link to={`/manga?${findObjByType(manga.relationships, "manga").id}`}>
                                 <MangaCard id={findObjByType(manga.relationships, "manga").id} index={index} />
                             </Link>
                         </SwiperSlide>

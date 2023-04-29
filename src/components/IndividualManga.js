@@ -18,7 +18,27 @@ export default function IndividualManga() {
     const baseUrl = state.baseUrl;
     const mangaRef = useRef();
 
-    console.log(window.location.search.replace(/^./, ""));
+    const mangaId = (window.location.search.replace(/^./, ""));
+    console.log(mangaId);
+
+    let getManga = async () => {
+        const resp = await axios({
+            method: 'GET',
+            url: `${baseUrl}/manga/${mangaId}`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${state.sessionToken}`
+            },
+        });
+
+        console.log(resp.data.data);
+
+        return resp;
+    }
+
+    useEffect(() => {
+        getManga();
+    });
 
     useEffect(() => {
         const username = state.username ?? window.localStorage.getItem('username');
