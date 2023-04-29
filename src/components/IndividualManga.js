@@ -16,7 +16,7 @@ export default function IndividualManga() {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
     const baseUrl = state.baseUrl;
-    const mangaRef = useRef();
+    const titleRef = useRef();
 
     const mangaId = (window.location.search.replace(/^./, ""));
     console.log(mangaId);
@@ -31,7 +31,8 @@ export default function IndividualManga() {
             },
         });
 
-        console.log(resp.data.data);
+        titleRef.current = (resp.data.data.attributes.altTitles.find(element => element.en).en);
+        console.log(titleRef.current);
 
         return resp;
     }
@@ -86,7 +87,7 @@ export default function IndividualManga() {
 
     return (
         <>
-            <Subheader subheader="Trial Feeds" />
+            <Subheader subheader={`${titleRef.current}`} />
             {/* <History /> */}
         </>
     )
