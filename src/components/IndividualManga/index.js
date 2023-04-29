@@ -92,13 +92,21 @@ export default function IndividualManga() {
     }, []);
 
     return (
-        <>
+        <div className="relative">
             <Subheader subheader={mangaFetched ? (`${titleRef.current}`) : ("Loading...")} />
+            {/* Background banner */}
             {mangaFetched ? <MangaCardCover className="banner" zeroBorderRadius={true} shade={true}
                 mangaCoverId={mangaRef.current.id} mangaCoverFileName={findObjByType(mangaRef.current.relationships, "cover_art").attributes.fileName}
             />
                 :
                 <MangaCardLoading />}
-        </>
+
+            {/* Manga cover card */}
+            {mangaFetched ? <MangaCardCover className="manga-card" zeroBorderRadius={true}
+                mangaCoverId={mangaRef.current.id} mangaCoverFileName={findObjByType(mangaRef.current.relationships, "cover_art").attributes.fileName}
+            />
+                :
+                <MangaCardLoading />}
+        </div>
     )
 }

@@ -1,3 +1,7 @@
+div.banner {
+    height: 13.5rem;
+}
+
 .zero-border-radius {
     border-radius: 0% !important;
 }
@@ -6,9 +10,10 @@
     position: relative;
 }
 
-.banner {
+img.banner {
     object-position: center 25%;
     background-size: cover;
+    max-height: 13.5rem;
 }
 
 .banner-shade {
@@ -17,4 +22,9 @@
     width: 100%;
     position: absolute;
     top: 0;
+}
+
+.manga-card {
+    width: 12.5rem;
+    max-height: 20rem;
 }
