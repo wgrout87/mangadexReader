@@ -8,6 +8,7 @@ import { UPDATE_EVERYTHING } from "../utils/actions";
 import { sessionIsExpired } from "../utils/helpers";
 import Subheader from "./Header/Subheader";
 import { MangaCardCover, MangaCardLoading } from "./MangaCard";
+import { findObjByType } from "../utils/helpers";
 
 export default function IndividualManga() {
     const [state, dispatch] = useSiteContext();
@@ -18,13 +19,14 @@ export default function IndividualManga() {
     const navigate = useNavigate();
     const baseUrl = state.baseUrl;
     const titleRef = useRef();
+    const mangaRef = useRef();
 
     const mangaId = (window.location.search.replace(/^./, ""));
 
     let getManga = async () => {
         const resp = await axios({
             method: 'GET',
-            url: `${baseUrl}/manga/${mangaId}`,
+            url: `${baseUrl}/manga/${mangaId}?includes[]=author&includes[]=artist&includes[]=cover_art`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${state.sessionToken}`
@@ -33,6 +35,7 @@ export default function IndividualManga() {
 
         titleRef.current = (resp.data.data.attributes.altTitles.find(element => element.en).en);
         console.log(resp.data.data);
+        mangaRef.current = resp.data.data;
 
         setMangaFetched(true);
 
@@ -91,7 +94,7 @@ export default function IndividualManga() {
         <>
             <Subheader subheader={mangaFetched ? (`${titleRef.current}`) : ("Loading...")} />
             {mangaFetched ? <MangaCardCover
-            // mangaCoverId={ } mangaCoverFileName={ }
+                mangaCoverId={mangaRef.current.id} mangaCoverFileName={findObjByType(mangaRef.current.relationships, "cover_art").attributes.fileName}
             />
                 :
                 <MangaCardLoading />}
