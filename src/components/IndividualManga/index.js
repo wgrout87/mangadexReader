@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Card, Button } from 'react-bootstrap';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { useSiteContext } from "../utils/GlobalState";
-import { UPDATE_EVERYTHING } from "../utils/actions";
-import { sessionIsExpired } from "../utils/helpers";
-import Subheader from "./Header/Subheader";
-import { MangaCardCover, MangaCardLoading } from "./MangaCard";
-import { findObjByType } from "../utils/helpers";
+import { useSiteContext } from "../../utils/GlobalState";
+import { UPDATE_EVERYTHING } from "../../utils/actions";
+import { sessionIsExpired } from "../../utils/helpers";
+import Subheader from "../Header/Subheader";
+import { MangaCardCover, MangaCardLoading } from "../MangaCard";
+import { findObjByType } from "../../utils/helpers";
+import "./style.css";
 
 export default function IndividualManga() {
     const [state, dispatch] = useSiteContext();
@@ -93,7 +94,7 @@ export default function IndividualManga() {
     return (
         <>
             <Subheader subheader={mangaFetched ? (`${titleRef.current}`) : ("Loading...")} />
-            {mangaFetched ? <MangaCardCover
+            {mangaFetched ? <MangaCardCover className="banner" zeroBorderRadius={true} shade={true}
                 mangaCoverId={mangaRef.current.id} mangaCoverFileName={findObjByType(mangaRef.current.relationships, "cover_art").attributes.fileName}
             />
                 :

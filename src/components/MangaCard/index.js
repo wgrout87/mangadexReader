@@ -41,9 +41,10 @@ export default function MangaCard(props) {
 
 // A MangaCard-identical element for when the important information is already known.
 export function MangaCardCover(props) {
-    return <Card className="bg-dark">
-        <Card.Body>
-            <img src={`https://uploads.mangadex.org/covers/${props.mangaCoverId}/${props.mangaCoverFileName}`} alt="manga cover" />
+    return <Card className={props.zeroBorderRadius ? "bg-dark zero-border-radius" : "bg-dark"}>
+        <Card.Body className="relative">
+            <img className={`${props.className}`} src={`https://uploads.mangadex.org/covers/${props.mangaCoverId}/${props.mangaCoverFileName}.256.jpg`} alt="manga cover" />
+            {props.shade && <div className="banner-shade" />}
         </Card.Body>
     </Card>
 }

@@ -1,0 +1,20 @@
+.zero-border-radius {
+    border-radius: 0% !important;
+}
+
+.relative {
+    position: relative;
+}
+
+.banner {
+    object-position: center 25%;
+    background-size: cover;
+}
+
+.banner-shade {
+    backdrop-filter: blur(4px);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
