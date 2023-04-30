@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Card, Button } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useSiteContext } from "../utils/GlobalState";
 import { UPDATE_HISTORY, UPDATE_EVERYTHING } from "../utils/actions";
 import { sessionIsExpired } from "../utils/helpers";
-import Subheader from "./Header/Subheader";
-import History from "./Feeds/History";
+import Subheader from "../components/Header/Subheader";
+import MangaCard from "../components/MangaCard";
+import History from "../components/Feeds/History";
 
-export default function Dashboard() {
+export default function TrialFeeds() {
     const [state, dispatch] = useSiteContext();
     const [refreshingSession, setRefreshingSession] = useState(false);
     const [sessionRefreshed, setSessionRefreshed] = useState(false);
@@ -17,11 +19,11 @@ export default function Dashboard() {
     const baseUrl = state.baseUrl;
     const mangaRef = useRef();
 
-    let getFeed = (async () => {
+    let getHistory = (async () => {
         // console.log(state.sessionToken);
         const resp = await axios({
             method: 'GET',
-            url: `${baseUrl}/user/follows/manga/feed?limit=20&translatedLanguage%5B%5D=en&contentRating%5B%5D=safe&contentRating%5B%5D=suggestive&includeFutureUpdates=1&order%5BcreatedAt%5D=desc&order%5BupdatedAt%5D=desc&order%5BpublishAt%5D=desc&order%5BreadableAt%5D=desc&order%5Bvolume%5D=desc&order%5Bchapter%5D=desc&`,
+            url: `${baseUrl}/user/history?limit=20`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${state.sessionToken}`
@@ -29,10 +31,10 @@ export default function Dashboard() {
         });
 
         mangaRef.current = resp.data.data;
-        dispatch({
-            type: UPDATE_HISTORY,
-            history: mangaRef.current
-        });
+        // dispatch({
+        //     type: UPDATE_HISTORY,
+        //     history: mangaRef.current
+        // });
 
         // console.log("mangaRef: ", mangaRef)
 
@@ -85,14 +87,14 @@ export default function Dashboard() {
 
     useEffect(() => {
         if (sessionRefreshed) {
-            getFeed();
+            getHistory().then(resp => { console.log("History: ", resp) });
         }
     }, [sessionRefreshed]);
 
     return (
         <>
-            <Subheader subheader="Dashboard" />
-            <History />
+            <Subheader subheader="Trial Feeds" />
+            {/* <History /> */}
         </>
     )
 }

@@ -6,10 +6,10 @@ import axios from 'axios';
 import { useSiteContext } from "../../utils/GlobalState";
 import { UPDATE_EVERYTHING } from "../../utils/actions";
 import { sessionIsExpired } from "../../utils/helpers";
-import Subheader from "../Header/Subheader";
-import { MangaCardCover, MangaCardLoading } from "../MangaCard";
+import Subheader from "../../components/Header/Subheader";
+import { MangaCardCover, MangaCardLoading } from "../../components/MangaCard";
 import { findObjByType } from "../../utils/helpers";
-import ChapterInfo from "../ChapterInfo";
+import ChapterInfo from "../../components/ChapterInfo";
 import { Link } from "react-router-dom";
 import "./style.css";
 
@@ -127,18 +127,22 @@ export default function IndividualManga() {
             <div className="relative">
                 <Subheader subheader={mangaFetched ? (`${titleRef.current}`) : ("Loading...")} />
                 {/* Background banner */}
-                {mangaFetched ? <MangaCardCover className="banner" zeroBorderRadius={true} shade={true}
-                    mangaCoverId={mangaRef.current.id} mangaCoverFileName={findObjByType(mangaRef.current.relationships, "cover_art").attributes.fileName}
-                />
+                {mangaFetched ?
+                    <MangaCardCover className="banner" zeroBorderRadius={true} shade={true}
+                        mangaCoverId={mangaRef.current.id} mangaCoverFileName={findObjByType(mangaRef.current.relationships, "cover_art").attributes.fileName}
+                    />
                     :
-                    <MangaCardLoading />}
+                    <MangaCardLoading />
+                }
 
                 {/* Manga cover card */}
-                {mangaFetched ? <MangaCardCover className="manga-card" zeroBorderRadius={true}
-                    mangaCoverId={mangaRef.current.id} mangaCoverFileName={findObjByType(mangaRef.current.relationships, "cover_art").attributes.fileName}
-                />
+                {mangaFetched ?
+                    <MangaCardCover className="manga-card" zeroBorderRadius={true}
+                        mangaCoverId={mangaRef.current.id} mangaCoverFileName={findObjByType(mangaRef.current.relationships, "cover_art").attributes.fileName}
+                    />
                     :
-                    <MangaCardLoading />}
+                    <MangaCardLoading />
+                }
             </div>
             <section>
                 {!mangaFeedFetched ? (

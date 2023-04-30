@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import Subheader from "./Header/Subheader";
+import Subheader from "../components/Header/Subheader";
 
 export default function UpdateProfile() {
     const emailRef = useRef();
