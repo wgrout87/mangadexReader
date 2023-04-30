@@ -18,7 +18,10 @@ export default function History() {
         }
     }, [setHistoryObtained, state])
 
-    console.log(state.history);
+    // console.log(state.history);
+    if (!state.history) {
+        console.log(state.history, "No History");
+    };
 
     return (
         <>

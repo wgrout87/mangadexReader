@@ -38,7 +38,13 @@ export default function IndividualManga() {
             },
         });
 
-        titleRef.current = (resp.data.data.attributes.altTitles.find(element => element.en).en);
+        // Looks for an AltTitle in Egnlish - enAltTitle will be null if none is found
+        let enAltTitle = resp.data.data.attributes.altTitles.find(element => element.en);
+        if (enAltTitle) {
+            enAltTitle = enAltTitle.en;
+        }
+
+        titleRef.current = (enAltTitle) ?? (resp.data.data.attributes.title.en);
         console.log(resp.data.data);
         mangaRef.current = resp.data.data;
 

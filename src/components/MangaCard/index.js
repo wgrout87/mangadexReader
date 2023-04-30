@@ -21,7 +21,7 @@ export default function MangaCard(props) {
                 'Authorization': `Bearer ${state.sessionToken}`
             },
         });
-        console.log(resp.data.data);
+        // console.log(resp.data.data);
 
         return resp.data.data;
     });
