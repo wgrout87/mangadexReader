@@ -14,6 +14,7 @@ import "./style.css";
 export default function IndividualManga() {
     const [state, dispatch] = useSiteContext();
     const [mangaFetched, setMangaFetched] = useState(false);
+    const [mangaFeedFetched, setMangaFeedFetched] = useState(false);
     const [refreshingSession, setRefreshingSession] = useState(false);
     const [sessionRefreshed, setSessionRefreshed] = useState(false);
     const { currentUser } = useAuth();
@@ -43,8 +44,35 @@ export default function IndividualManga() {
         return resp;
     }
 
+    let getMangaFeed = async () => {
+        const resp = await axios({
+            method: 'GET',
+            url: `${baseUrl}/manga/${mangaId}/feed`,
+            params: {
+                limit: 20,
+                translatedLanguage: ["en"],
+                offset: 0,
+                order: {
+                    chapter: "desc"
+                }
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${state.sessionToken}`
+            },
+        });
+
+        // .map(chapter => chapter.id) - add to put all chapters into an array
+        console.log(resp.data.data);
+
+        setMangaFeedFetched(true);
+
+        return resp;
+    }
+
     useEffect(() => {
         getManga();
+        getMangaFeed();
     });
 
     useEffect(() => {
