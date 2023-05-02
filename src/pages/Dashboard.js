@@ -7,7 +7,6 @@ import { UPDATE_HISTORY, UPDATE_EVERYTHING } from "../utils/actions";
 import { sessionIsExpired } from "../utils/helpers";
 import Subheader from "../components/Header/Subheader";
 import History from "../components/Feeds/History";
-import { async } from "q";
 
 export default function Dashboard() {
     const [state, dispatch] = useSiteContext();
