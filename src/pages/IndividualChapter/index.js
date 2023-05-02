@@ -29,28 +29,31 @@ export default function IndividualChapter() {
         }
     });
 
-    const downloadChapter = (async (obj) => {
+    const downloadChapter = async (obj) => {
         for (const page of obj.dataSaver) {
             const resp = await axios({
                 method: 'GET',
-                url: `${obj.host}/data/${obj.hash}/${page}`,
+                url: `${obj.host}/dataSaver/${obj.hash}/${page}`,
                 responseType: 'arraybuffer'
             });
 
-            // Create a reference to 'images/mountains.jpg'
             const pageRef = ref(storage, `Mangadex/${chapterId}/${page}`);
 
-            uploadBytes(pageRef, resp.data).then((snapshot) => {
-                console.log('Uploaded a blob or file! ', snapshot);
-            });
+            console.log(resp);
+            console.log(pageRef);
+
+            // uploadBytes(pageRef, resp.data).then((snapshot) => {
+            //     console.log('Uploaded a blob or file! ', snapshot);
+            // });
         };
 
         console.log(`Downloaded ${obj.dataSaver.length} pages.`);
-    });
+    };
 
     useEffect(() => {
         getChapterInfo().then((resp) => {
-            console.log(resp);
+            console.log(resp.host, resp.hash, resp.dataSaver);
+            downloadChapter(resp);
         });
     }, []);
 
