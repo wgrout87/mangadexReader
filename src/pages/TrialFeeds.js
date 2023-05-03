@@ -23,7 +23,7 @@ export default function TrialFeeds() {
         // console.log(state.sessionToken);
         const resp = await axios({
             method: 'GET',
-            url: `${baseUrl}/user/history?limit=20`,
+            url: `${baseUrl}/user/history`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${state.sessionToken}`

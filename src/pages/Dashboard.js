@@ -77,7 +77,7 @@ export default function Dashboard() {
                 refreshToken: refreshToken,
             });
 
-            console.log("Session Refreshed");
+            console.log(sessionToken);
         })
     }
 

@@ -50,16 +50,17 @@ export default function IndividualChapter() {
         console.log(`Downloaded ${obj.dataSaver.length} pages.`);
     };
 
-    useEffect(() => {
-        getChapterInfo().then((resp) => {
-            console.log(resp.host, resp.hash, resp.dataSaver);
-            downloadChapter(resp);
-        });
-    }, []);
+    // useEffect(() => {
+    //     getChapterInfo().then((resp) => {
+    //         console.log(resp.host, resp.hash, resp.dataSaver);
+    //         downloadChapter(resp);
+    //     });
+    // }, []);
 
     return (
         <div>
-            Manga page
+            <iframe title={`${chapterId}`} type="text/html" src={`https://mangadex.org/chapter/${chapterId}`} width="800px" height="600px" >
+            </iframe>
         </div>
     )
 }
